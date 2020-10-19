@@ -13,6 +13,7 @@ import {
 } from 'react-native'
 import { SharedElement } from 'react-navigation-shared-element'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { RouteProp } from '@react-navigation/core'
 
 import { StackParamsList } from '../references/types/navigation'
 import { moviesType } from '../references/types/moviesType'
@@ -20,8 +21,8 @@ import { moviesType } from '../references/types/moviesType'
 import { API_KEY, BASE_URL, POSTER_URL } from './../references/API';
 import LinearGradient from 'react-native-linear-gradient'
 import { Fonts } from './../references/Fonts';
+
 import AnimatedTouchable from '../components/AnimatedTouchable'
-import { RouteProp } from '@react-navigation/core'
 
 type PropsList = {
     navigation: StackNavigationProp<StackParamsList, 'Home'>
@@ -50,7 +51,11 @@ const Home = (props: PropsList) => {
         })
     }
     return (
-        <ScrollView>
+        <ScrollView
+            style = {{
+                backgroundColor: 'black'
+            }}
+        >
             <View style = {{ flex: 1, height }} >
                 <Animated.FlatList
                     data = {moviesPopulars}
@@ -112,27 +117,31 @@ const Home = (props: PropsList) => {
                                         transform: [{translateX}]
                                     }}
                                 >
-                                    <Image
-                                        resizeMode='contain'
-                                        source = {{uri: `${POSTER_URL}/${item.poster_path}`}}
-                                        style = {{
-                                            width: 180,
-                                            height: 200,
-                                            borderRadius: 10,
-                                            alignSelf: 'center'
-                                        }}
-                                    />
-                                    <Text
-                                        style = {{
-                                            color: '#FFF',
-                                            fontSize: 27,
-                                            textAlign: 'center',
-                                            fontFamily: Montserrat.SemiBold,
-                                            marginTop: 10
-                                        }}
-                                    >
-                                        {item.title}
-                                    </Text>
+                                    <SharedElement id={`${item.id}.shareItem`} >
+                                        <>
+                                        <Image                                            
+                                            source = {{uri: `${POSTER_URL}/${item.poster_path}`}}
+                                            style = {{
+                                                // resizeMode: 'contain',
+                                                width: 150,
+                                                height: 200,
+                                                borderRadius: 10,
+                                                alignSelf: 'center'
+                                            }}
+                                        />
+                                        <Text
+                                            style = {{
+                                                color: '#FFF',
+                                                fontSize: 27,
+                                                textAlign: 'center',
+                                                fontFamily: Montserrat.SemiBold,
+                                                marginTop: 10
+                                            }}
+                                        >
+                                            {item.title}
+                                        </Text>
+                                        </>
+                                    </SharedElement>
                                     <Text
                                         numberOfLines = {3}
                                         style = {{
@@ -146,7 +155,7 @@ const Home = (props: PropsList) => {
                                         {item.overview}
                                     </Text>
                                     <AnimatedTouchable
-                                        onPress = {() => console.log('oke')}
+                                        onPress = {() => navigation.navigate('Detail', { item })}
                                         activeScale = {0.9}
                                         durationIn = {200}
                                         durationOut = {100}
@@ -189,7 +198,10 @@ const Home = (props: PropsList) => {
                         color: 'white',
                         fontSize: 20,
                         flex:1,
-                        justifyContent: 'space-between'
+                        justifyContent: 'space-between',
+                        textShadowColor: '#303030',
+                        textShadowOffset: {width: 1, height: 1},
+                        textShadowRadius: 5
                     }}
                 >
                     Movies{`\n`}App
@@ -203,6 +215,9 @@ const Home = (props: PropsList) => {
                             fontFamily: route.params == undefined ? Montserrat.SemiBold : Montserrat.Regular,
                             color: 'white',
                             fontSize: 17,
+                            textShadowColor: 'rgba(0,0,0,0.6)',
+                            textShadowOffset: {width: 2, height: 1},
+                            textShadowRadius: 5,                            
                         }}
                     >
                         Home
@@ -217,7 +232,10 @@ const Home = (props: PropsList) => {
                             fontFamily: Montserrat.Regular,
                             color: 'white',
                             fontSize: 17,
-                            marginHorizontal: 10
+                            marginHorizontal: 10,
+                            textShadowColor: '#303030',
+                            textShadowOffset: {width: 1, height: 1},
+                            textShadowRadius: 5
                         }}
                     >
                         TV Show
@@ -232,6 +250,9 @@ const Home = (props: PropsList) => {
                             fontFamily: Montserrat.Regular,
                             color: 'white',
                             fontSize: 17,
+                            textShadowColor: '#303030',
+                            textShadowOffset: {width: 1, height: 1},
+                            textShadowRadius: 5
                         }}
                     >
                         Movies

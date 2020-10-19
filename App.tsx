@@ -5,7 +5,7 @@ import { StackParamsList } from './src/references/types/navigation'
 
 import Home from './src/screens/Home';
 import Detail from './src/screens/Detail';
-import { createStackNavigator, TransitionPresets, TransitionSpecs } from '@react-navigation/stack';
+import { CardStyleInterpolators, createStackNavigator, TransitionPresets, TransitionSpecs } from '@react-navigation/stack';
 import { StatusBar } from 'react-native';
 
 const Stack = createSharedElementStackNavigator<StackParamsList>({});
@@ -18,8 +18,9 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions = {{
-          headerShown: false, 
+          headerShown: false,          
         }}
+        
       >
         <Stack.Screen
           name = 'Home'
@@ -29,8 +30,8 @@ const App = () => {
           name = 'Detail'
           component = {Detail}
           options = {{
-            ...TransitionSpecs.FadeInFromBottomAndroidSpec,
-            ...TransitionPresets.FadeFromBottomAndroid
+            ...TransitionPresets.FadeFromBottomAndroid,
+            ...CardStyleInterpolators.forNoAnimation
           }}
         />
       </Stack.Navigator>

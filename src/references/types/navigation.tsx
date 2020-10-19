@@ -1,4 +1,8 @@
+import {moviesType} from './moviesType'
+
 export type StackParamsList = {
     Home: undefined,
-    Detail: undefined
+    Detail: {
+        item: moviesType
+    }
 }
