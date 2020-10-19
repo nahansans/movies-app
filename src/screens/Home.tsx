@@ -20,12 +20,17 @@ import { moviesType } from '../references/types/moviesType'
 import { API_KEY, BASE_URL, POSTER_URL } from './../references/API';
 import LinearGradient from 'react-native-linear-gradient'
 import { Fonts } from './../references/Fonts';
+import AnimatedTouchable from '../components/AnimatedTouchable'
+import { RouteProp } from '@react-navigation/core'
 
 type PropsList = {
     navigation: StackNavigationProp<StackParamsList, 'Home'>
+    route: RouteProp<StackParamsList, 'Home'>
 }
 
 const Home = (props: PropsList) => {
+    const { navigation, route } = props
+
     const width = Dimensions.get('window').width
     const height = Dimensions.get('window').height
     const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
@@ -82,6 +87,7 @@ const Home = (props: PropsList) => {
                                 }}
                             >
                                 <Animated.Image
+                                    blurRadius = {0.9}
                                     source = {{uri: `${POSTER_URL}${item.backdrop_path}`}}
                                     style = {{
                                         position: 'absolute',
@@ -139,13 +145,99 @@ const Home = (props: PropsList) => {
                                     >
                                         {item.overview}
                                     </Text>
+                                    <AnimatedTouchable
+                                        onPress = {() => console.log('oke')}
+                                        activeScale = {0.9}
+                                        durationIn = {200}
+                                        durationOut = {100}
+                                        style = {{              
+                                            padding: 10,
+                                            backgroundColor: '#f1c40f',
+                                            borderRadius: 10,
+                                            alignSelf: 'center',
+                                            marginTop: 15
+                                        }}
+                                    >
+                                        <Text
+                                            style = {{
+                                                fontFamily: Montserrat.SemiBold,
+                                                color: '#303030'
+                                            }}
+                                        >
+                                            WATCH MOVIE
+                                        </Text>
+                                    </AnimatedTouchable>
                                 </Animated.View>
                             </View>
                         )
                     }}
                 />
             </View>
-            <Text>OKe</Text>
+            <View
+                style = {{
+                    flexDirection: 'row',
+                    position: 'absolute',
+                    top: 15,
+                    left: 15,
+                    right: 15,
+                    alignItems: 'center'
+                }}
+            >
+                <Text
+                    style = {{
+                        fontFamily: Montserrat.SemiBold,
+                        color: 'white',
+                        fontSize: 20,
+                        flex:1,
+                        justifyContent: 'space-between'
+                    }}
+                >
+                    Movies{`\n`}App
+                </Text>
+                <AnimatedTouchable
+                    onPress = {() => console.log('oke')}
+                    activeScale = {0.9}
+                >
+                    <Text
+                        style = {{
+                            fontFamily: route.params == undefined ? Montserrat.SemiBold : Montserrat.Regular,
+                            color: 'white',
+                            fontSize: 17,
+                        }}
+                    >
+                        Home
+                    </Text>
+                </AnimatedTouchable>
+                <AnimatedTouchable
+                    onPress = {() => console.log('oke')}
+                    activeScale = {0.9}
+                >
+                    <Text
+                        style = {{
+                            fontFamily: Montserrat.Regular,
+                            color: 'white',
+                            fontSize: 17,
+                            marginHorizontal: 10
+                        }}
+                    >
+                        TV Show
+                    </Text>
+                </AnimatedTouchable>
+                <AnimatedTouchable
+                    activeScale = {0.9}
+                    onPress = {() => console.log('oke')}
+                >
+                    <Text
+                        style = {{
+                            fontFamily: Montserrat.Regular,
+                            color: 'white',
+                            fontSize: 17,
+                        }}
+                    >
+                        Movies
+                    </Text>
+                </AnimatedTouchable>
+            </View>
         </ScrollView>
     )
 }
