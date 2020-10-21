@@ -18,7 +18,7 @@ import { RouteProp } from '@react-navigation/core'
 import { StackParamsList } from '../references/types/navigation'
 import { moviesType } from '../references/types/moviesType'
 
-import { API_KEY, BASE_URL, POSTER_URL } from './../references/API';
+import { API_KEY, BASE_URL, POSTER_URL, BACKDROP_URL } from './../references/API';
 import LinearGradient from 'react-native-linear-gradient'
 import { Fonts } from './../references/Fonts';
 
@@ -92,8 +92,7 @@ const Home = (props: PropsList) => {
                                 }}
                             >
                                 <Animated.Image
-                                    blurRadius = {0.9}
-                                    source = {{uri: `${POSTER_URL}${item.backdrop_path}`}}
+                                    source = {{uri: `${BACKDROP_URL}${item.backdrop_path}`}}
                                     style = {{
                                         position: 'absolute',
                                         top: 0, left: 0, bottom: 0, right: 0,
@@ -101,7 +100,7 @@ const Home = (props: PropsList) => {
                                     }}
                                 />
                                 <LinearGradient
-                                    colors = {['rgba(0,0,0,0)', 'black']}
+                                    colors = {['rgba(0,0,0,0.2)', 'black']}
                                     style = {{
                                         position: 'absolute',
                                         top: 0, left: 0, bottom: 0, right: 0
@@ -119,29 +118,29 @@ const Home = (props: PropsList) => {
                                 >
                                     <SharedElement id={`${item.id}.shareItem`} >
                                         <>
-                                        <Image                                            
+                                        <Image
+                                            resizeMode='contain'
                                             source = {{uri: `${POSTER_URL}/${item.poster_path}`}}
-                                            style = {{
-                                                // resizeMode: 'contain',
-                                                width: 150,
-                                                height: 200,
+                                            style = {{                                                
+                                                width: 133.2,
+                                                height: 200.16,
                                                 borderRadius: 10,
                                                 alignSelf: 'center'
                                             }}
                                         />
-                                        <Text
-                                            style = {{
-                                                color: '#FFF',
-                                                fontSize: 27,
-                                                textAlign: 'center',
-                                                fontFamily: Montserrat.SemiBold,
-                                                marginTop: 10
-                                            }}
-                                        >
-                                            {item.title}
-                                        </Text>
                                         </>
                                     </SharedElement>
+                                    <Text
+                                        style = {{
+                                            color: '#FFF',
+                                            fontSize: 27,
+                                            textAlign: 'center',
+                                            fontFamily: Montserrat.SemiBold,
+                                            marginTop: 10
+                                        }}
+                                    >
+                                        {item.title}
+                                    </Text>
                                     <Text
                                         numberOfLines = {3}
                                         style = {{
