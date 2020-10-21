@@ -1,5 +1,5 @@
 # movies-app
-<img src="./screenshot/scr.jpeg" width = 170 height = 293  /><img src="./screenshot/scr1.jpeg" width = 170 height = 293  />
+<img src="./screenshot/scr.jpeg" width = 170 height = 293  /> <img src="./screenshot/scr1.jpeg" width = 170 height = 293  />
 
 #### Installation
 ```
