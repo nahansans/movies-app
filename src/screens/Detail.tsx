@@ -70,7 +70,6 @@ const Detail = (props: PropsList) => {
         fetch(`${BASE_URL}/movie/${item.id}/similar${API_KEY}`)
         .then(res => res.json())
         .then(resJSON => {
-            console.log(resJSON.results)
             setSimilarMovies(resJSON.results)
         })
         .catch(error => {

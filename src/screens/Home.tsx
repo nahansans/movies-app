@@ -9,7 +9,8 @@ import {
     Platform,
     Dimensions,
     ActivityIndicator,
-    ScrollView
+    ScrollView,
+    FlatListProps
 } from 'react-native'
 import { SharedElement } from 'react-navigation-shared-element'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -35,18 +36,21 @@ const Home = (props: PropsList) => {
     const width = Dimensions.get('window').width
     const height = Dimensions.get('window').height
     const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
-    const {Montserrat,OpenSans} = Fonts
+    const [currentMenu, setcurrentMenu] = useState('Home')
+    const {Montserrat,OpenSans} = Fonts    
+    const flatlistRef = useRef<FlatList>(null)
 
     useEffect(() => {
-        getMoviesPopulars()
+        getMovies('now_playing')
     }, [])
     const scrollX = useRef(new Animated.Value(0)).current
     const [moviesPopulars, setMoviesPopulars] = useState([] as moviesType[])
 
-    const getMoviesPopulars = () => {
-        fetch(`${BASE_URL}/movie/popular/${API_KEY}`)
+    const getMovies = (movies: any) => {
+        fetch(`${BASE_URL}/movie/${movies}/${API_KEY}`)
         .then(res => res.json())
         .then(resJSON => {
+            flatlistRef.current?.scrollToIndex({viewOffset: 0, index: 0, animated: true})
             setMoviesPopulars(resJSON.results)
         })
     }
@@ -58,6 +62,7 @@ const Home = (props: PropsList) => {
         >
             <View style = {{ flex: 1, height }} >
                 <Animated.FlatList
+                    ref = {flatlistRef}
                     data = {moviesPopulars}
                     keyExtractor = {(item, index) => String(index)}
                     horizontal
@@ -206,12 +211,15 @@ const Home = (props: PropsList) => {
                     Movies{`\n`}App
                 </Text>
                 <AnimatedTouchable
-                    onPress = {() => console.log('oke')}
+                    onPress = {() => {
+                        setcurrentMenu('Home')
+                        getMovies('now_playing')
+                    }}
                     activeScale = {0.9}
                 >
                     <Text
                         style = {{
-                            fontFamily: route.params == undefined ? Montserrat.SemiBold : Montserrat.Regular,
+                            fontFamily: currentMenu == 'Home' ? Montserrat.SemiBold : Montserrat.Regular,
                             color: 'white',
                             fontSize: 17,
                             textShadowColor: 'rgba(0,0,0,0.6)',
@@ -223,12 +231,15 @@ const Home = (props: PropsList) => {
                     </Text>
                 </AnimatedTouchable>
                 <AnimatedTouchable
-                    onPress = {() => console.log('oke')}
+                    onPress = {() => {
+                        setcurrentMenu('Popular')
+                        getMovies('popular')
+                    }}
                     activeScale = {0.9}
                 >
                     <Text
                         style = {{
-                            fontFamily: Montserrat.Regular,
+                            fontFamily: currentMenu == 'Popular' ? Montserrat.SemiBold : Montserrat.Regular,
                             color: 'white',
                             fontSize: 17,
                             marginHorizontal: 10,
@@ -237,16 +248,19 @@ const Home = (props: PropsList) => {
                             textShadowRadius: 5
                         }}
                     >
-                        TV Show
+                        Popular
                     </Text>
                 </AnimatedTouchable>
                 <AnimatedTouchable
                     activeScale = {0.9}
-                    onPress = {() => console.log('oke')}
+                    onPress = {async() => {
+                        setcurrentMenu('Top Rated')
+                        getMovies('top_rated')
+                    }}
                 >
                     <Text
                         style = {{
-                            fontFamily: Montserrat.Regular,
+                            fontFamily: currentMenu == 'Top Rated' ? Montserrat.SemiBold : Montserrat.Regular,
                             color: 'white',
                             fontSize: 17,
                             textShadowColor: '#303030',
@@ -254,7 +268,7 @@ const Home = (props: PropsList) => {
                             textShadowRadius: 5
                         }}
                     >
-                        Movies
+                        Top Rated
                     </Text>
                 </AnimatedTouchable>
             </View>
