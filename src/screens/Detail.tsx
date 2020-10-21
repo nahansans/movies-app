@@ -126,11 +126,11 @@ const Detail = (props: PropsList) => {
                             textAlign: 'center',
                             fontFamily: Montserrat.Regular,
                             marginTop: 10,
-                            borderRadius: 50,
                             backgroundColor: '#f1c40f',
                             alignSelf: 'center',
-                            paddingHorizontal: 5,
-                            paddingVertical: 15
+                            padding: 10,
+                            borderTopLeftRadius: 40,
+                            borderBottomRightRadius: 40
                         }}
                     >
                         <Text style = {{ fontSize: 27 }} >{movie.vote_average}</Text>

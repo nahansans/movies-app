@@ -50,7 +50,6 @@ const Home = (props: PropsList) => {
         fetch(`${BASE_URL}/movie/${movies}/${API_KEY}`)
         .then(res => res.json())
         .then(resJSON => {
-            flatlistRef.current?.scrollToIndex({viewOffset: 0, index: 0, animated: true})
             setMoviesPopulars(resJSON.results)
         })
     }
@@ -213,6 +212,7 @@ const Home = (props: PropsList) => {
                 <AnimatedTouchable
                     onPress = {() => {
                         setcurrentMenu('Home')
+                        flatlistRef.current?.scrollToIndex({viewOffset: 0, index: 0, animated: true})
                         getMovies('now_playing')
                     }}
                     activeScale = {0.9}
@@ -233,6 +233,7 @@ const Home = (props: PropsList) => {
                 <AnimatedTouchable
                     onPress = {() => {
                         setcurrentMenu('Popular')
+                        flatlistRef.current?.scrollToIndex({viewOffset: 0, index: 0, animated: true})
                         getMovies('popular')
                     }}
                     activeScale = {0.9}
@@ -255,6 +256,7 @@ const Home = (props: PropsList) => {
                     activeScale = {0.9}
                     onPress = {async() => {
                         setcurrentMenu('Top Rated')
+                        flatlistRef.current?.scrollToIndex({viewOffset: 0, index: 0, animated: true})
                         getMovies('top_rated')
                     }}
                 >
