@@ -12,7 +12,7 @@
 - Click on your avatar or initials in the main navigation [(screenshot)](https://files.tmdb.org/misc/api_step_1-1534865112.png)
 - Click the "Settings" link [(screenshot)](https://files.tmdb.org/misc/api_step_2-1534865151.png)
 - Click the "API" link in the left sidebar [(screenshot)](https://files.tmdb.org/misc/api_step_3-1534865163.png)
-- Click "Create" or "click here" on the API page ()[(screenshot)](https://files.tmdb.org/misc/api_step_4-1534865184.png)
+- Click "Create" or "click here" on the API page [(screenshot)](https://files.tmdb.org/misc/api_step_4-1534865184.png)
 - Copy and Paste your API Key on Variable **YOUR_API_KEY** in the file './src/references/API.tsx'
   <img src="./screenshot/Screenshot 2020-10-21 143243.jpg" />
 
