@@ -1,4 +1,5 @@
 # movies-app
+<img src="./screenshot/scr.jpeg" width = 150 height = 150  />
 
 #### Installation
 ```
