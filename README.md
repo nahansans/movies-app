@@ -7,6 +7,8 @@
 3. npm install
 4. npx react-native run-android
 ```
+#### get api key from themoviedb
+
 
 #### Libraries
 - [React Native Linear Gradient](https://www.npmjs.com/package/react-native-linear-gradient)
